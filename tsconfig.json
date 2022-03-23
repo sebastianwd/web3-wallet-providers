@@ -28,6 +28,7 @@
     "**/*.d.ts",
     "**/*.tsx",
     "next.config.js",
+    "svgr.config.js",
     ".eslintrc.js",
     "src/**/*"
   ],
