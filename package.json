@@ -9,8 +9,12 @@
     "update": "ncu -i",
     "prepare": "husky install"
   },
+  "engines": {
+    "node": "16.6.1"
+  },
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
+    "@iam4x/bsc-scan": "^3.3.4",
     "@metamask/providers": "^8.1.1",
     "@walletconnect/ethereum-provider": "^1.7.5",
     "@web3-react/abstract-connector": "^6.0.7",

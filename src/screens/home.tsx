@@ -1,40 +1,19 @@
 import React from 'react'
-import Web3 from 'web3'
-import type { AbstractConnector } from '@web3-react/abstract-connector'
-import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
 import { walletConnectors } from '~/modules/web3/connectors'
 import styled from 'styled-components'
 import { WalletIconButton } from '~/components/wallet-icon-button'
+import { useWeb3 } from '~/hooks/use-web3'
 
 const HomeScreen = () => {
-  const { activate, deactivate, active, chainId, account, error } =
-    useWeb3React()
-
-  const isUnsupportedChain = error instanceof UnsupportedChainIdError
-
-  const connect = React.useCallback(
-    (connector: AbstractConnector, type: string) => {
-      console.log('connector', connector)
-      activate(connector)
-
-      localStorage.setItem('previousConnector', type)
-    },
-    [activate]
-  )
-
-  const disconnect = () => {
-    deactivate()
-
-    localStorage.removeItem('previousConnector')
-  }
-
-  React.useEffect(() => {
-    const previousConnector = localStorage.getItem('previousConnector')
-
-    if (previousConnector && walletConnectors[previousConnector]) {
-      connect(walletConnectors[previousConnector], previousConnector)
-    }
-  }, [connect])
+  const {
+    connect,
+    isUnsupportedChain,
+    active,
+    chainId,
+    account,
+    error,
+    disconnect,
+  } = useWeb3()
 
   return (
     <Container>
@@ -46,8 +25,8 @@ const HomeScreen = () => {
           <p>
             Connection Status: <code>{`${active}`}</code>
           </p>
-          <p>Account: {account}</p>
-          <p>Network ID: {chainId}</p>
+          <p>Account: {account || 'Not connected'}</p>
+          <p>Network ID: {chainId || 'Not connected'}</p>
           <ProvidersContainer>
             <WalletIconButton
               onClick={() => {
