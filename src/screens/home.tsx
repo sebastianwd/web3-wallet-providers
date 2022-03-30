@@ -14,6 +14,7 @@ const HomeScreen = () => {
 
   const connect = React.useCallback(
     (connector: AbstractConnector, type: string) => {
+      console.log('connector', connector)
       activate(connector)
 
       localStorage.setItem('previousConnector', type)
